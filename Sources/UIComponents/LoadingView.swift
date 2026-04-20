@@ -1,17 +1,17 @@
 import SwiftUI
 import UIKit
 
-struct LoadingView: UIViewRepresentable {
+public struct LoadingView: UIViewRepresentable {
     var title: String?
     var rowCount = 0
     var rowHeight: CGFloat = 104
     var centersTitle = false
 
-    func makeUIView(context: Context) -> LoadingContentView {
+    public func makeUIView(context: Context) -> LoadingContentView {
         LoadingContentView()
     }
 
-    func updateUIView(_ uiView: LoadingContentView, context: Context) {
+    public func updateUIView(_ uiView: LoadingContentView, context: Context) {
         uiView.configure(
             title: title,
             rowCount: rowCount,
@@ -21,7 +21,7 @@ struct LoadingView: UIViewRepresentable {
     }
 }
 
-final class LoadingContentView: UIView {
+final public class LoadingContentView: UIView {
     private let stackSpacing: CGFloat = 16
     private let titleRowHeight: CGFloat = 24
     private let stackView = UIStackView()
@@ -29,7 +29,7 @@ final class LoadingContentView: UIView {
     private var currentRowCount = 0
     private var currentRowHeight: CGFloat = 104
 
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         let titleHeight = currentTitle.map { _ in titleRowHeight } ?? 0
         let rowsHeight = CGFloat(currentRowCount) * currentRowHeight
 
