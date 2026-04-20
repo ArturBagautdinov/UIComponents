@@ -2,10 +2,22 @@ import SwiftUI
 import UIKit
 
 public struct LoadingView: UIViewRepresentable {
-    var title: String?
-    var rowCount = 0
-    var rowHeight: CGFloat = 104
-    var centersTitle = false
+    public let title: String?
+    public let rowCount: Int
+    public let rowHeight: CGFloat
+    public let centersTitle: Bool
+
+    public init(
+        title: String? = nil,
+        rowCount: Int = 0,
+        rowHeight: CGFloat = 104,
+        centersTitle: Bool = false
+    ) {
+        self.title = title
+        self.rowCount = rowCount
+        self.rowHeight = rowHeight
+        self.centersTitle = centersTitle
+    }
 
     public func makeUIView(context: Context) -> LoadingContentView {
         LoadingContentView()
@@ -52,7 +64,6 @@ final public class LoadingContentView: UIView {
         setupLayout()
     }
 
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
