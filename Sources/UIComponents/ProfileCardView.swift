@@ -1,7 +1,7 @@
-#if canImport(UIKit)
+import SwiftUI
 import UIKit
 
-public final class ProfileCardView: UIView {
+public struct ProfileCardView: UIViewRepresentable {
     public struct ViewData: Equatable {
         public let fullName: String
         public let email: String
@@ -21,6 +21,28 @@ public final class ProfileCardView: UIView {
         }
     }
 
+    private let viewData: ViewData
+    private let onFollowTap: (() -> Void)?
+
+    public init(
+        viewData: ViewData,
+        onFollowTap: (() -> Void)? = nil
+    ) {
+        self.viewData = viewData
+        self.onFollowTap = onFollowTap
+    }
+
+    public func makeUIView(context: Context) -> ProfileCardContentView {
+        ProfileCardContentView()
+    }
+
+    public func updateUIView(_ uiView: ProfileCardContentView, context: Context) {
+        uiView.onFollowTap = onFollowTap
+        uiView.configure(with: viewData)
+    }
+}
+
+public final class ProfileCardContentView: UIView {
     public var onFollowTap: (() -> Void)?
 
     private let cardView = UIView()
@@ -36,12 +58,11 @@ public final class ProfileCardView: UIView {
         setupLayout()
     }
 
-    @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public func configure(with viewData: ViewData) {
+    public func configure(with viewData: ProfileCardView.ViewData) {
         nameLabel.text = viewData.fullName
         emailLabel.text = viewData.email
 
